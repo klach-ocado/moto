@@ -9,6 +9,8 @@ import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityPr
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.ses.SesClient;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+import software.amazon.awssdk.services.sns.SnsClient;
+import software.amazon.awssdk.services.sqs.SqsAsyncClient;
 import software.amazon.awssdk.utils.AttributeMap;
 
 import java.net.URI;
@@ -35,6 +37,21 @@ public class DependencyFactory {
         return S3Client.builder()
                 .region(Region.US_EAST_1)
                 .httpClientBuilder(ApacheHttpClient.builder())
+                .endpointOverride(MOTO_URI)
+                .build();
+    }
+
+    public static SnsClient snsClient() {
+        return SnsClient.builder()
+                .region(Region.US_EAST_1)
+                .httpClientBuilder(ApacheHttpClient.builder())
+                .endpointOverride(MOTO_URI)
+                .build();
+    }
+
+    public static SqsAsyncClient sqsAsyncClient() {
+        return SqsAsyncClient.builder()
+                .region(Region.US_EAST_1)
                 .endpointOverride(MOTO_URI)
                 .build();
     }
